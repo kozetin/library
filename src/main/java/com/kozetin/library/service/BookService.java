@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class BookService {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public List<Book> getBookList() {
         return new ArrayList<>(jdbcTemplate.query(
