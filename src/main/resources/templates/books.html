@@ -51,8 +51,8 @@
         <td th:text="${book.name}"></td>
         <td>Кем взята</td>
         <td>
-            <form method="post" th:action="@{/removeBook}">
-                <input type="hidden" name="bookId" th:value="${book.id}">
+            <form method="post" th:action="@{/removeBook}"> <!-- TODO: Add modal to accept or decline -->
+                <input type="hidden" th:value="${book.id}" name="bookId">
                 <button type="submit" class="btn btn-danger">Удалить</button>
             </form>
         </td>
