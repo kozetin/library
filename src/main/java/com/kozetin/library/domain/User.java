@@ -3,11 +3,13 @@ package com.kozetin.library.domain;
 public class User {
     private Long id;
     private String login, password;
+    private boolean active;
 
-    public User(Long id, String login, String password) {
+    public User(Long id, String login, String password, boolean active) {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.active = active;
     }
 
     @Override
@@ -16,6 +18,7 @@ public class User {
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", active='" + active + '\'' +
                 '}';
     }
 
