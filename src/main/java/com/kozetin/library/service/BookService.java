@@ -40,11 +40,13 @@ public class BookService {
         if (bookAuthor.isEmpty()) {
             return "Заполните значение Автор";
         }
+
         try {
             isn = Long.parseLong(bookISN);
         } catch (NumberFormatException ex) {
             return "Поле ISN должно быть числовым";
         }
+
         List<Long> isnList = jdbcTemplate.query(
                 "SELECT ISN FROM book WHERE id != ?", new Object[] {id},
                 (rs, rowNum) ->  rs.getLong("ISN"));
@@ -58,4 +60,35 @@ public class BookService {
 
         return "OK";
     }
+
+    public String addBook(String bookISN, String bookName, String bookAuthor) {
+        Long isn;
+        //data validation
+        if (bookISN.isEmpty()) {
+            return "Заполните значение ISN";
+        }
+        if (bookName.isEmpty()) {
+            return "Заполните значение Название";
+        }
+        if (bookAuthor.isEmpty()) {
+            return "Заполните значение Автор";
+        }
+
+        try {
+            isn = Long.parseLong(bookISN);
+        } catch (NumberFormatException ex) {
+            return "Поле ISN должно быть числовым";
+        }
+
+        List<Long> isnList = jdbcTemplate.query(
+                "SELECT ISN FROM book WHERE id = ?", new Object[] {isn},
+                (rs, rowNum) ->  rs.getLong("ISN"));
+        if (isnList.contains(isn)) {
+            return "Книга с таким ISN уже существует";
+        }
+        jdbcTemplate.update("INSERT INTO book (isn, name, author) " +
+                "VALUES (?,?,?)",isn,bookName,bookAuthor);
+        return "OK";
+    }
+
 }

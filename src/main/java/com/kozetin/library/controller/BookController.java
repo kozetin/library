@@ -51,4 +51,15 @@ public class BookController {
         }
         return "redirect:/books";
     }
+
+    @PostMapping("/addbook")
+    public String addBook(Model model, @RequestParam("bookIsn") String bookISN, @RequestParam("bookName") String bookName, @RequestParam("bookAuthor") String bookAuthor) {
+        String errorMessage = bookService.addBook(bookISN,bookName,bookAuthor);
+        if (!errorMessage.equals("OK")) {
+            model.addAttribute("errorMessage", errorMessage);
+            getListModel(model);
+            return "books";
+        }
+        return "redirect:/books";
+    }
 }
