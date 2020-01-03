@@ -33,9 +33,41 @@
 <div th:if="${errorMessage}" class="alert alert-danger mt-2" role="alert">
     <p th:text="${errorMessage}"/>
 </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить</button>
 
-<form method="post" action="/addBook">
-    <button type="button" class="btn btn-danger">Удалить</button>
+    <form method="post" th:action="@{/addbook}">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Новая книга</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="addbook-isn"  class="col-form-label">ISN:</label>
+                            <input type="text" name="bookIsn" class="form-control" id="addbook-isn">
+                        </div>
+                        <div class="form-group">
+                            <label for="addbook-name" class="col-form-label">Название:</label>
+                            <input type="text" name="bookName" class="form-control" id="addbook-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="addbook-author" class="col-form-label">Автор:</label>
+                            <input type="text" name="bookAuthor" class="form-control" id="addbook-author">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
 <table class="table">
