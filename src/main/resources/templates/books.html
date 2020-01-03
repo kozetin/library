@@ -30,6 +30,9 @@
     </div>
 </nav>
 <!-- End of header -->
+<div th:if="${errorMessage}" class="alert alert-danger mt-2" role="alert">
+    <p th:text="${errorMessage}"/>
+</div>
 
 <form method="post" action="/addBook">
     <button type="button" class="btn btn-danger">Удалить</button>
@@ -50,6 +53,7 @@
         <td> <!--th:text="${book.ISN}"-->
             <a href="#editModal" th:text="${book.ISN}" data-toggle="modal" data-target="#editModal" th:data-bookid="${book.id}" th:data-bookisn="${book.ISN}" th:data-bookname="${book.name}" th:data-bookauthor="${book.author}"></a>
 
+            <form method="post" th:action="@{/editbook}">
             <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -60,7 +64,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" th:action="@{/editbook}">
+
                                 <input type="hidden" name="bookId" id="book-id">
                                 <div class="form-group">
                                     <label for="book-isn" class="col-form-label">ISN:</label>
@@ -74,7 +78,7 @@
                                     <label for="book-author" class="col-form-label">Автор:</label>
                                     <input type="text" class="form-control" name="bookAuthor" id="book-author">
                                 </div>
-                            </form>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
@@ -97,6 +101,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.name}"></td>
