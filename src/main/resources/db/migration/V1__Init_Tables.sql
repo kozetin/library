@@ -3,6 +3,7 @@ create table usr (
     login varchar(255) not null,
     password varchar(255) not null,
     active boolean not null,
+    user_id int8,
     primary key (id)
 );
 
@@ -13,12 +14,3 @@ create table book (
     name varchar(255) not null,
     primary key (id)
 );
-
-create table book_user (
-    user_id int8 not null,
-    book_id int8 not null
-);
-
-alter table if exists book_user
-    add constraint book_user_fk
-    foreign key (user_id) references usr;
