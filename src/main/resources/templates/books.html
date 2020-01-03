@@ -47,18 +47,68 @@
     </thead>
     <tbody>
     <tr th:each="book :${bookList}">
-        <td th:text="${book.ISN}"></td>
+        <td> <!--th:text="${book.ISN}"-->
+            <a href="#editModal" th:text="${book.ISN}" data-toggle="modal" data-target="#editModal" th:data-bookid="${book.id}" th:data-bookisn="${book.ISN}" th:data-bookname="${book.name}" th:data-bookauthor="${book.author}"></a>
+
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Изменить книгу</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" th:action="@{/editbook}">
+                                <input type="hidden" name="bookId" id="book-id">
+                                <div class="form-group">
+                                    <label for="book-isn" class="col-form-label">ISN:</label>
+                                    <input type="text" class="form-control" name="bookIsn" id="book-isn">
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-name" class="col-form-label">Название:</label>
+                                    <input type="text" class="form-control" name="bookName" id="book-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-author" class="col-form-label">Автор:</label>
+                                    <input type="text" class="form-control" name="bookAuthor" id="book-author">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
+                        <script>
+                        $('#editModal').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget) // Button that triggered the modal
+                        var bookid = button.data('bookid')
+                        var bookisn = button.data('bookisn')
+                        var bookname = button.data('bookname')
+                        var bookauthor = button.data('bookauthor')
+                        var modal = $(this)
+                        modal.find('.modal-body #book-id').val(bookid)
+                        modal.find('.modal-body #book-isn').val(bookisn)
+                        modal.find('.modal-body #book-name').val(bookname)
+                        modal.find('.modal-body #book-author').val(bookauthor)
+                        })
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.name}"></td>
         <td>Кем взята</td>
         <td>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removalModal" th:data-removeid="${book.id}">Удалить</button>
             <form method="post" th:action="@{/removeBook}">
-            <div class="modal fade" id="removalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="removalModal" tabindex="-1" role="dialog" aria-labelledby="removalModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Удалить книгу?</h5>
+                            <h5 class="modal-title" id="removalModalLabel">Удалить книгу?</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
