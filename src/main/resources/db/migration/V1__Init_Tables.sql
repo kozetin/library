@@ -1,5 +1,5 @@
 create table usr (
-    id int8 not null,
+    id int8 serial,
     login varchar(255) not null,
     password varchar(255) not null,
     active boolean not null,
@@ -8,7 +8,7 @@ create table usr (
 );
 
 create table book (
-    id int8 not null,
+    id int8 serial,
     ISN int8 not null,
     author varchar(255) not null,
     name varchar(255) not null,
