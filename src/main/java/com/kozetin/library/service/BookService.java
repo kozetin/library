@@ -29,6 +29,7 @@ public class BookService {
 
     public String editBook(String bookid, String bookISN, String bookName, String bookAuthor) {
         Long id = Long.parseLong(bookid);
+        Long isn;
         //data validation
         if (bookISN.isEmpty()) {
             return "Заполните значение ISN";
@@ -39,16 +40,21 @@ public class BookService {
         if (bookAuthor.isEmpty()) {
             return "Заполните значение Автор";
         }
+        try {
+            isn = Long.parseLong(bookISN);
+        } catch (NumberFormatException ex) {
+            return "Поле ISN должно быть числовым";
+        }
         List<Long> isnList = jdbcTemplate.query(
                 "SELECT ISN FROM book WHERE id != ?", new Object[] {id},
                 (rs, rowNum) ->  rs.getLong("ISN"));
-        if (isnList.contains(Long.parseLong(bookISN))) {
+        if (isnList.contains(isn)) {
             return "Книга с таким ISN уже существует";
         }
         //end of data validation
         jdbcTemplate.update("UPDATE book " +
                 "SET ISN=?, name=?, author=? " +
-                "WHERE id=?",Long.parseLong(bookISN),bookName,bookAuthor,id);
+                "WHERE id=?",isn,bookName,bookAuthor,id);
 
         return "OK";
     }
