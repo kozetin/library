@@ -1,8 +1,12 @@
 package com.kozetin.library.controller;
 
 import com.kozetin.library.domain.Book;
+import com.kozetin.library.domain.User;
 import com.kozetin.library.service.BookService;
+import com.kozetin.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +22,16 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private UserService userService;
+
     private void getListModel(Model model) {
         List<Book> bookList = new ArrayList<>(bookService.getBookList());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User currentUser = userService.getUserByName(username);
         model.addAttribute("bookList", bookList);
+        model.addAttribute("currentUser",currentUser);
     }
 
     @GetMapping
@@ -32,6 +43,7 @@ public class BookController {
     @GetMapping("/books")
     public String getBookList(Model model) {
         getListModel(model);
+
         return "books";
     }
 
