@@ -12,12 +12,5 @@ import java.util.ArrayList;
 public class UserService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    public User getUserByName (String name) {
-        return jdbcTemplate.query(
-                "SELECT id, login  password FROM usr " +
-                        "WHERE login =?", new Object[] {name},
-                (rs, rowNum) -> new User(rs.getLong("id"), rs.getString("login"), rs.getString("password"), true)).get(0);
-    }
-
+    
 }
