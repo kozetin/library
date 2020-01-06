@@ -28,8 +28,7 @@ public class BookController {
     private void getListModel(Model model) {
         List<Book> bookList = new ArrayList<>(bookService.getBookList());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        User currentUser = userService.getUserByName(username);
+        String currentUser = auth.getName();
         model.addAttribute("bookList", bookList);
         model.addAttribute("currentUser",currentUser);
     }
@@ -72,6 +71,18 @@ public class BookController {
             getListModel(model);
             return "books";
         }
+        return "redirect:/books";
+    }
+
+    @PostMapping("/takeBook")
+    public String takeBook (@RequestParam("bookId") String bookId) {
+        bookService.takeBook(bookId,SecurityContextHolder.getContext().getAuthentication().getName());
+        return "redirect:/books";
+    }
+
+    @PostMapping("/leaveBook")
+    public String leaveBook (@RequestParam("bookId") String bookId) {
+        bookService.leaveBook(bookId);
         return "redirect:/books";
     }
 }

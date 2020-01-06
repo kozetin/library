@@ -16,8 +16,8 @@ public class BookService {
 
     public List<Book> getBookList() {
         return new ArrayList<>(jdbcTemplate.query(
-                "SELECT id, ISN, name, author FROM book",
-                (rs, rowNum) -> new Book(rs.getLong("id"), rs.getLong("ISN"), rs.getString("name"), rs.getString("author"))
+                "SELECT id, ISN, name, author, user_name FROM book",
+                (rs, rowNum) -> new Book(rs.getLong("id"), rs.getLong("ISN"), rs.getString("author"), rs.getString("name"), rs.getString("user_name"))
         ));
     }
 
@@ -89,6 +89,18 @@ public class BookService {
         jdbcTemplate.update("INSERT INTO book (isn, name, author) " +
                 "VALUES (?,?,?)",isn,bookName,bookAuthor);
         return "OK";
+    }
+
+    public void takeBook(String bookId, String username) {
+        jdbcTemplate.update("UPDATE book " +
+                "SET user_name=? " +
+                "WHERE id=?",username,bookId);
+    }
+
+    public void leaveBook(String bookId) {
+        jdbcTemplate.update("UPDATE book " +
+                "SET user_name=? " +
+                "WHERE id=?",null,bookId);
     }
 
 }

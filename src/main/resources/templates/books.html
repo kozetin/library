@@ -82,7 +82,7 @@
     </thead>
     <tbody>
     <tr th:each="book :${bookList}">
-        <td> <!--th:text="${book.ISN}"-->
+        <td>
             <a href="#editModal" th:text="${book.ISN}" data-toggle="modal" data-target="#editModal" th:data-bookid="${book.id}" th:data-bookisn="${book.ISN}" th:data-bookname="${book.name}" th:data-bookauthor="${book.author}"></a>
 
             <form method="post" th:action="@{/editbook}">
@@ -137,7 +137,23 @@
         </td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.name}"></td>
-        <td>Кем взята</td>
+        <td>
+            <div th:if="${book.user_name == null}">
+                <form method="post" th:action="@{/takeBook}">
+                    <input type="hidden" name="bookId" th:value="${book.id}">
+                    <button type="submit" class="btn btn-primary">Взять</button>
+                </form>
+            </div>
+            <div th:if="${book.user_name == currentUser}">
+                <form method="post" th:action="@{/leaveBook}">
+                    <input type="hidden" name="bookId" th:value="${book.id}">
+                <button type="submit" class="btn btn-primary">Вернуть</button>
+                </form>
+            </div>
+            <div th:if="${book.user_name != currentUser and book.user_name != null}">
+                <p th:text="${book.user_name}"></p>
+            </div>
+        </td>
         <td>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removalModal" th:data-removeid="${book.id}">Удалить</button>
             <form method="post" th:action="@{/removeBook}">
