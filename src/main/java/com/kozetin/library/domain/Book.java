@@ -1,8 +1,8 @@
 package com.kozetin.library.domain;
 
 public class Book {
-    private Long id, ISN,usr_id;
-    private String author, name;
+    private Long id, ISN;
+    private String author, name, user_name;
 
     public Book(Long id, Long ISN, String author, String name) {
         this.id = id;
@@ -53,11 +53,11 @@ public class Book {
         this.name = name;
     }
 
-    public Long getUsr_id() {
-        return usr_id;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUsr_id(Long usr_id) {
-        this.usr_id = usr_id;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 }
