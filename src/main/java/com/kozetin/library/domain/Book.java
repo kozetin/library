@@ -4,11 +4,12 @@ public class Book {
     private Long id, ISN;
     private String author, name, user_name;
 
-    public Book(Long id, Long ISN, String author, String name) {
+    public Book(Long id, Long ISN, String author, String name, String user_name) {
         this.id = id;
         this.ISN = ISN;
         this.author = author;
         this.name = name;
+        this.user_name = user_name;
     }
 
     @Override
