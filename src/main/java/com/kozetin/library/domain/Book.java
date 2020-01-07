@@ -12,16 +12,6 @@ public class Book {
         this.user_name = user_name;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", ISN=" + ISN +
-                ", Author='" + author + '\'' +
-                ", Name='" + name + '\'' +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }

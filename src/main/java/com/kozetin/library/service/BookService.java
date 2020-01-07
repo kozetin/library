@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BookService {
@@ -76,13 +75,13 @@ public class BookService {
 
         try {
             isn = Long.parseLong(bookISN);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) { //throws when id can't be converted
             return "Поле ISN должно быть числовым";
         }
 
         List<Long> isnList = jdbcTemplate.query(
-                "SELECT ISN FROM book WHERE id = ?", new Object[] {isn},
-                (rs, rowNum) ->  rs.getLong("ISN"));
+                "SELECT ISN FROM book WHERE iSN = ?", new Object[] {isn},
+                (rs, rowNum) ->  rs.getLong("ISN")); // get full isn list to find duplicates
         if (isnList.contains(isn)) {
             return "Книга с таким ISN уже существует";
         }

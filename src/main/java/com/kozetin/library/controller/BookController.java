@@ -1,11 +1,9 @@
 package com.kozetin.library.controller;
 
 import com.kozetin.library.domain.Book;
-import com.kozetin.library.domain.User;
 import com.kozetin.library.service.BookService;
 import com.kozetin.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +20,9 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    private UserService userService;
-
     private void getListModel(Model model) {
         List<Book> bookList = new ArrayList<>(bookService.getBookList());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUser = auth.getName();
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("bookList", bookList);
         model.addAttribute("currentUser",currentUser);
     }
@@ -42,7 +36,6 @@ public class BookController {
     @GetMapping("/books")
     public String getBookList(Model model) {
         getListModel(model);
-
         return "books";
     }
 
@@ -52,7 +45,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @PostMapping("/editbook")
+    @PostMapping("/editBook")
     public String editBook(Model model, @RequestParam("bookId") String bookId, @RequestParam("bookIsn") String bookISN, @RequestParam("bookName") String bookName, @RequestParam("bookAuthor") String bookAuthor) {
         String errorMessage = bookService.editBook(bookId,bookISN,bookName,bookAuthor);
         if (!errorMessage.equals("OK")) {
@@ -63,7 +56,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @PostMapping("/addbook")
+    @PostMapping("/addBook")
     public String addBook(Model model, @RequestParam("bookIsn") String bookISN, @RequestParam("bookName") String bookName, @RequestParam("bookAuthor") String bookAuthor) {
         String errorMessage = bookService.addBook(bookISN,bookName,bookAuthor);
         if (!errorMessage.equals("OK")) {

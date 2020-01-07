@@ -11,6 +11,6 @@ create table book (
     ISN int8 not null,
     author varchar(255) not null,
     name varchar(255) not null,
-    usr_id int8,
+    user_name varchar(255),
     primary key (id)
 );
