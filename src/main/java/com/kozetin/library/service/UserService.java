@@ -3,6 +3,7 @@ package com.kozetin.library.service;
 import com.kozetin.library.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,9 +12,13 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public List<User> getUserList() {
+        System.out.println(passwordEncoder.encode("pass1"));
         return new ArrayList<>(jdbcTemplate.query(
                 "SELECT id, login, password, active FROM usr",
                 (rs, rowNum) -> new User(rs.getLong("id"), rs.getString("login"), rs.getString("password"), rs.getBoolean("active"))
@@ -46,7 +51,7 @@ public class UserService {
         //end of data validation
         jdbcTemplate.update("UPDATE usr " +
                 "SET login=?, password=? " +
-                "WHERE id=?",login,userPassword,id);
+                "WHERE id=?",login,passwordEncoder.encode(userPassword),id);
 
         return "OK";
     }
@@ -67,7 +72,7 @@ public class UserService {
             return "Пользователь с таким именем уже существует";
         }
         jdbcTemplate.update("INSERT INTO usr (login, password, active) " +
-                "VALUES (?,?,?)",login,userPassword, true);
+                "VALUES (?,?,?)",login,passwordEncoder.encode(userPassword), true);
         return "OK";
     }
 
