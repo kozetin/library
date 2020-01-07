@@ -12,15 +12,6 @@ public class User {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", active='" + active + '\'' +
-                '}';
-    }
 
     public Long getId() {
         return id;
