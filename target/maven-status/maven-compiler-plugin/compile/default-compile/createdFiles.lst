@@ -1,0 +1,9 @@
+com\kozetin\library\config\MvcConfig.class
+com\kozetin\library\service\BookService.class
+com\kozetin\library\controller\BookController.class
+com\kozetin\library\controller\UserController.class
+com\kozetin\library\config\WebSecurityConfig.class
+com\kozetin\library\Application.class
+com\kozetin\library\domain\User.class
+com\kozetin\library\service\UserService.class
+com\kozetin\library\domain\Book.class
