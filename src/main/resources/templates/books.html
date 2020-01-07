@@ -73,12 +73,51 @@
 <table class="table sort">
     <thead>
     <tr>
-        <td scope="col">ISN</td>
+        <th scope="col">ISN</th>
         <td scope="col">Автор</td>
         <td scope="col">Название</td>
-        <td scope="col">Кем взята</td>
-        <td scope="col">Удалить</td>
+        <th scope="col">Кем взята</th>
+        <th scope="col">Удалить</th>
     </tr>
+    <style>
+    table.sort{
+	border-spacing:0.1em;
+	margin-bottom:1em;
+	margin-top:1em
+}
+
+/* ячейки таблицы */
+table.sort td{
+	border:1px solid #CCCCCC;
+	padding:0.3em 1em
+}
+table.sort th{
+	border:1px solid #CCCCCC;
+	padding:0.3em 1em
+}
+
+/* заголовки таблицы */
+table.sort thead td{
+	cursor:pointer;
+	cursor:hand;
+	font-weight:bold;
+	text-align:center;
+	vertical-align:middle
+}
+table.sort thead th{
+	cursor:pointer;
+	cursor:hand;
+	font-weight:bold;
+	text-align:center;
+	vertical-align:middle
+}
+
+/* заголовок отсортированного столбца */
+table.sort thead td.curcol{
+	background-color:#999999;
+	color:#FFFFFF
+}
+    </style>
     </thead>
     <tbody>
     <tr th:each="book :${bookList}">
@@ -202,7 +241,7 @@ modified and localized by alexander shurkayev <alshur@narod.ru> | http://htmlcod
 last modification 06.12.2009 by KDG http://htmlweb.ru/
 */
 
-initial_sort_id = 1; // номер начального отсортированного столбца, начиная с нуля
+initial_sort_id = 0; // номер начального отсортированного столбца, начиная с нуля
 initial_sort_up = 0; // 0 - сортировка вниз, 1 - вверх
 var sort_case_sensitive = false; // чуствительновть к регистру при сотрировке
 
