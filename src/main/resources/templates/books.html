@@ -33,7 +33,7 @@
 <div th:if="${errorMessage}" class="alert alert-danger mt-2" role="alert">
     <p th:text="${errorMessage}"/>
 </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить книгу</button>
 
     <form method="post" th:action="@{/addBook}">
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                    <button type="submit" class="btn btn-primary">Создать</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">INS</th>
+        <th scope="col">ISN</th>
         <th scope="col">Автор</th>
         <th scope="col">Название</th>
         <th scope="col">Кем взята</th>

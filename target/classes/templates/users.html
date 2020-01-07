@@ -33,7 +33,7 @@
 <div th:if="${errorMessage}" class="alert alert-danger mt-2" role="alert">
     <p th:text="${errorMessage}"/>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить пользователя</button>
 
 <form method="post" th:action="@{/addUser}">
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
